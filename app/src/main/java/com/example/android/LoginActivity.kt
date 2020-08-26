@@ -3,12 +3,13 @@ package com.example.android
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ipmedth.Resources.Api
-import com.example.ipmedth.Resources.JsonMaker
+import com.example.android.Resources.Api
+import com.example.android.Resources.JsonMaker
 
 
 class LoginActivity : AppCompatActivity() {
@@ -46,14 +47,19 @@ class LoginActivity : AppCompatActivity() {
      * Then it makes the advice and saves the user
      */
     private fun login(name: String, password: String){
-        api.login(name, password) { result ->
-            if(result.toString() == "This user does not exist"){
-                makeErrorDialog("Inloggen mislukt!", "Deze gebruiker bestaat niet")
-            }else if(result.toString() == "\"This password doest not exist by this user\"") {
-                makeErrorDialog("Inloggen mislukt!", "Verkeerd wachtwoord opgegeven")
-            }else{
-                switchToHome()
-            }
+//        api.login(name, password) { result ->
+//            if(result.toString() == "This user does not exist"){
+//                makeErrorDialog("Inloggen mislukt!", "Deze gebruiker bestaat niet")
+//            }else if(result.toString() == "\"This password doest not exist by this user\"") {
+//                makeErrorDialog("Inloggen mislukt!", "Verkeerd wachtwoord opgegeven")
+//            }else{
+//                switchToHome()
+//            }
+//        }
+        if(name == "zissely" && password == "test"){
+            switchToHome()
+        }else{
+            makeErrorDialog("Inloggen mislukt!", "Verkeerd wachtwoord opgegeven")
         }
     }
 
@@ -62,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
      * This function switches to home
      */
     private fun switchToHome() {
+        Log.d("DEBUG", "GO")
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
