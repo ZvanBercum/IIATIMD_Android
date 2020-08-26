@@ -1,5 +1,16 @@
 package com.example.android.Resources
 
+import android.content.Context
+import android.util.Log
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONException
+import org.json.JSONObject
+
 
 /**
  * @class Api
@@ -23,13 +34,19 @@ class Api{
      * This function performs a get request to the basurl+endpoint
      * passes result to the callback
      */
-    private fun _getRequest(endpoint : String, callback: (String?) -> Unit){
+    private fun _getRequest(endpoint : String, callback: (JSONObject?) -> Unit){
         val url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2"
         val getRequest =
             JsonObjectRequest(
                 Request.Method.GET, url, null,
-                Response.Listener<JSONObject?> { response -> Log.d("DEBUG", response.toString()) },
-                Response.ErrorListener { error -> Log.d("DEBUG", error.toString()) }
+                Response.Listener<JSONObject?> { response ->
+                try {
+                    callback(response)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                } },
+                //TODO: ERROR NEEDS TO BE HANDLED CORRECTLY
+                Response.ErrorListener { error -> Log.d("ERROR", error.toString()) }
             )
         this.queue!!.add(getRequest)
     }
@@ -44,37 +61,28 @@ class Api{
      * data is passed in the formbody
      * passes result to the callback
      */
-    private fun _postRequest(formBody: RequestBody, endpoint: String, callback: (String?)-> Unit) {
-        val url = "http://httpbin.org/post";
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-            new Response.Listener<String>()
-            {
-                @Override
-                public void onResponse(String response) {
-                    // response
-                    Log.d("Response", response);
+    private fun _postRequest(endpoint: String, params:MutableMap<String, String>,  callback: (String?)-> Unit) {
+        val url = "https://postman-echo.com/post"
+
+        val username: String = "zissely"
+        val password: String = "test"
+        val postRequest: StringRequest = object : StringRequest(
+            Request.Method.POST, url,
+            Response.Listener { response ->
+                try {
+                   callback(response)
+                } catch (e: JSONException) {
+                    e.printStackTrace()
                 }
             },
-            new Response.ErrorListener()
-            {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    // error
-                    Log.d("Error.Response", response);
-                }
+            Response.ErrorListener { error -> Log.d("ERROR", error.toString())
+            }) {
+            override fun getParams(): Map<String, String> {
+                return params
             }
-        ) {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("name", "Alif");
-                params.put("domain", "http://itsalif.info");
+        }
+        this.queue!!.add(postRequest)
 
-                return params;
-            }
-        };
-        queue.add(postRequest);
     }
 
 
@@ -83,4 +91,14 @@ class Api{
      * @var nummer String
      * @var password String
      * @var callback
+     * This function sends the postrequest of the login to the server.
+     * Passes the results in the callback.
+     */
+    fun login(name: String, password: String, callback: (String?) -> Unit){
+        val params: MutableMap<String, String> = HashMap()
+        params["username"] = name
+        params["password"] = password
+        this._postRequest("", params, callback)
+    }
+
 }

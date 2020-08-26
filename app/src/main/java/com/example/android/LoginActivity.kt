@@ -17,14 +17,15 @@ class LoginActivity : AppCompatActivity() {
     //Init view
     lateinit var submit: Button
     var result : String = ""
-
+    lateinit var api : Api
     //Load classes
-    private val api = Api()
     private val jsonMaker = JsonMaker()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        this.api = Api(this)
 
         //Set variables
         val loginNameEt = findViewById<EditText>(R.id.login_name)
@@ -47,19 +48,18 @@ class LoginActivity : AppCompatActivity() {
      * Then it makes the advice and saves the user
      */
     private fun login(name: String, password: String){
-//        api.login(name, password) { result ->
-//            if(result.toString() == "This user does not exist"){
-//                makeErrorDialog("Inloggen mislukt!", "Deze gebruiker bestaat niet")
-//            }else if(result.toString() == "\"This password doest not exist by this user\"") {
-//                makeErrorDialog("Inloggen mislukt!", "Verkeerd wachtwoord opgegeven")
-//            }else{
-//                switchToHome()
-//            }
-//        }
-        if(name == "zissely" && password == "test"){
-            switchToHome()
+        if(name.isBlank() || password.isBlank()){
+            makeErrorDialog("Geen gegevens ingevuld!", "Voer een gebruikersnaam en wachtwoord in.")
         }else{
-            makeErrorDialog("Inloggen mislukt!", "Verkeerd wachtwoord opgegeven")
+            this.api.login(name, password){ result ->
+                if(result.toString() == "This user does not exist"){
+                    makeErrorDialog("Inloggen mislukt!", "Deze gebruiker bestaat niet")
+                }else if(result.toString() == "\"This password doest not exist by this user\"") {
+                    makeErrorDialog("Inloggen mislukt!", "Verkeerd wachtwoord opgegeven")
+                }else{
+                    switchToHome()
+                }
+            }
         }
     }
 
@@ -68,7 +68,6 @@ class LoginActivity : AppCompatActivity() {
      * This function switches to home
      */
     private fun switchToHome() {
-        Log.d("DEBUG", "GO")
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
