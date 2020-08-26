@@ -5,6 +5,7 @@ import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
+import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -17,7 +18,6 @@ import org.json.JSONObject
  * Class to make api calls to RESTFUL server
  */
 class Api{
-
 
     private var queue: RequestQueue?
     //BaseURL is localhost for testing purposes, using NGROK for tunneling.
@@ -36,19 +36,18 @@ class Api{
      * This function performs a get request to the basurl+endpoint
      * passes result to the callback
      */
-    private fun _getRequest(endpoint : String, callback: (JSONObject?) -> Unit){
+    private fun _getRequest(endpoint : String, callback: (String?, VolleyError?) -> Unit){
         val url = this.base_url+endpoint
         val getRequest =
-            JsonObjectRequest(
-                Request.Method.GET, url, null,
-                Response.Listener<JSONObject?> { response ->
+            StringRequest(
+                Request.Method.GET, url,
+                Response.Listener<String?> { response ->
                 try {
-                    callback(response)
+                    callback(response, null)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 } },
-                //TODO: ERROR NEEDS TO BE HANDLED CORRECTLY
-                Response.ErrorListener { error -> Log.d("ERROR", error.toString()) }
+                Response.ErrorListener { error -> callback(null, error) }
             )
         this.queue!!.add(getRequest)
     }
@@ -63,18 +62,18 @@ class Api{
      * data is passed in the formbody
      * passes result to the callback
      */
-    private fun _postRequest(endpoint: String, params:MutableMap<String, String>,  callback: (String?)-> Unit) {
+    private fun _postRequest(endpoint: String, params:MutableMap<String, String>,  callback: (String?, VolleyError?)-> Unit) {
         val url = this.base_url+endpoint
         val postRequest: StringRequest = object : StringRequest(
             Request.Method.POST, url,
             Response.Listener { response ->
                 try {
-                   callback(response)
+                   callback(response, null)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             },
-            Response.ErrorListener { error -> Log.d("ERROR", error.toString())
+            Response.ErrorListener { error -> callback(null, error)
             }) {
             override fun getParams(): Map<String, String> {
                 return params
@@ -93,11 +92,16 @@ class Api{
      * This function sends the postrequest of the login to the server.
      * Passes the results in the callback.
      */
-    fun login(email: String, password: String, callback: (String?) -> Unit){
+    fun login(email: String, password: String, callback: (String?, VolleyError?) -> Unit){
         val endpoint = "/api/authenticate"
         val params: MutableMap<String, String> = HashMap()
         params["email"] = email
         params["password"] = password
         this._postRequest(endpoint, params, callback)
+    }
+
+    fun getMedicines(token: String, callback:(String?, VolleyError?) -> Unit){
+        val endpoint = "/medicine/index?token=$token"
+        this._getRequest(endpoint, callback)
     }
 }

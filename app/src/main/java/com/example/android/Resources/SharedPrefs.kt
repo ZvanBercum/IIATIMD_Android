@@ -34,7 +34,12 @@ class SharedPrefs {
      */
     fun isLogged(): String? {
         val userPref = shareSharedPrefs()
-        return userPref.getString("Logged", "")
+        val token = userPref.getString("Logged", "")
+        if(token == ""){
+            return null
+        }else{
+            return token
+        }
     }
 
     /**
