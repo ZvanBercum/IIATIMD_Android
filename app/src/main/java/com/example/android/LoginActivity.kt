@@ -63,6 +63,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
+
     /**
      * @func switchToHome
      * This function switches to home
