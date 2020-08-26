@@ -8,12 +8,12 @@ import com.example.android.Resources.SharedPrefs
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Loas class for memory
+        //Load class for memory access
         val sharedPrefs = SharedPrefs(this)
 
         //Check if user is logged in
-        val logged = sharedPrefs.getLogged()
-        if(logged){
+        val logged = sharedPrefs.isLogged()
+        if(logged != null){
             this.switchToHome()
         }else{
             this.switchToLogin()

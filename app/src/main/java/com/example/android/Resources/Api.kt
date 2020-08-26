@@ -20,7 +20,9 @@ class Api{
 
 
     private var queue: RequestQueue?
-    private val base_url = "http://larsdeklijne.nl"
+    //BaseURL is localhost for testing purposes, using NGROK for tunneling.
+    //BEWARE: NGROK URL CHANGES EVERYTIME YOU RESTART THE SERVICE
+    private val base_url = "https://c1018c9953c1.ngrok.io"
     //Init vars
 
     constructor(context: Context) {
@@ -35,7 +37,7 @@ class Api{
      * passes result to the callback
      */
     private fun _getRequest(endpoint : String, callback: (JSONObject?) -> Unit){
-        val url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2"
+        val url = this.base_url+endpoint
         val getRequest =
             JsonObjectRequest(
                 Request.Method.GET, url, null,
@@ -62,10 +64,7 @@ class Api{
      * passes result to the callback
      */
     private fun _postRequest(endpoint: String, params:MutableMap<String, String>,  callback: (String?)-> Unit) {
-        val url = "https://postman-echo.com/post"
-
-        val username: String = "zissely"
-        val password: String = "test"
+        val url = this.base_url+endpoint
         val postRequest: StringRequest = object : StringRequest(
             Request.Method.POST, url,
             Response.Listener { response ->
@@ -94,11 +93,11 @@ class Api{
      * This function sends the postrequest of the login to the server.
      * Passes the results in the callback.
      */
-    fun login(name: String, password: String, callback: (String?) -> Unit){
+    fun login(email: String, password: String, callback: (String?) -> Unit){
+        val endpoint = "/api/authenticate"
         val params: MutableMap<String, String> = HashMap()
-        params["username"] = name
+        params["email"] = email
         params["password"] = password
-        this._postRequest("", params, callback)
+        this._postRequest(endpoint, params, callback)
     }
-
 }

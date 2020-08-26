@@ -29,10 +29,29 @@ class SharedPrefs {
      * @func getLogged
      * @return Boolean
      * This function checks if the user is logged in
+     * if he is, return the token.
+     * if not, return null
      */
-    fun getLogged(): Boolean{
+    fun isLogged(): String? {
         val userPref = shareSharedPrefs()
-        return userPref.getBoolean("Logged", false)
+        return userPref.getString("Logged", "")
+    }
+
+    /**
+     * Saves the token in the storage
+     *
+     */
+    fun loginUser(token: String){
+        val userPref = shareSharedPrefs()
+        userPref.edit().putString("Logged", token).apply()
+    }
+
+    /**
+     * Removes the token from the storage
+     */
+    fun logoutUser(){
+        val userPref = shareSharedPrefs()
+        userPref.edit().remove("Logged").apply()
     }
 
     /**
