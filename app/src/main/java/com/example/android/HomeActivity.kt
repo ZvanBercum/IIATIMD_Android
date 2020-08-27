@@ -1,18 +1,23 @@
 package com.example.android
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.AuthFailureError
 import com.example.android.Resources.Api
-import com.example.android.Resources.Medicine
 import com.example.android.Resources.SharedPrefs
+import kotlinx.android.synthetic.main.activity_home.*
 import org.json.JSONArray
 import org.json.JSONObject
 
+
 class HomeActivity : AppCompatActivity() {
 
+    //Init view
     lateinit var api : Api
     lateinit var sharedPrefs: SharedPrefs
 
@@ -32,6 +37,18 @@ class HomeActivity : AppCompatActivity() {
                     }
                 }
                 if(result != null){
+
+                    val button = findViewById<Button>(R.id.test_button)
+
+                    //Submit login
+                    button.setOnClickListener{
+                        Log.d("DEBUG", "GEKLIIKT!!!!!!!!!!!!!!!!!")
+
+                        // TODO laad herrineringenActivity view in als er op de button wordt geklikt
+                        val intent = Intent(this, HerinneringenActivity::class.java)
+                        startActivity(intent)
+                    }
+
                     //TODO Start of medicine fetching, needs to move to its own class
                     val medicinesArray = JSONArray(result)
                     val medicines = JSONObject(JSONArray(medicinesArray[0].toString())[0].toString())
@@ -56,6 +73,7 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
+
 
     /**
      * OVERIDE
