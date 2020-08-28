@@ -11,10 +11,9 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_herrineringen.*
+import kotlinx.android.synthetic.main.activity_reminder.*
 
 class ReminderActivity : AppCompatActivity()  {
 
@@ -27,7 +26,7 @@ class ReminderActivity : AppCompatActivity()  {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_herrineringen)
+        setContentView(R.layout.activity_reminder)
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
