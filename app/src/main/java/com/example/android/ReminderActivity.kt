@@ -16,7 +16,9 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.android.Resources.Adapters.ReminderAdapter
+import com.example.android.Resources.AppDatabase
 import com.example.android.Resources.Reminder
 import kotlinx.android.synthetic.main.activity_reminder.*
 
@@ -41,17 +43,25 @@ class ReminderActivity : AppCompatActivity()  {
         linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
 
+        val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "medicineDB").allowMainThreadQueries().build()
+
         reminders.add(Reminder("1",  "08:00", "14-08-2020", "1"))
         reminders.add(Reminder("2",  "12:00", "14-08-2020", "1"))
         reminders.add(Reminder("3",  "16:00", "14-08-2020", "1"))
         reminders.add(Reminder("4",  "08:00", "15-08-2020", "1"))
         reminders.add(Reminder("5",  "12:00", "15-08-2020", "1"))
         reminders.add(Reminder("6",  "16:00", "15-08-2020", "1"))
+
         adapter = ReminderAdapter(reminders)
         recyclerView.adapter = adapter
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+
+
+
+
+        //DO NOT EDIT ABOVE THIS LINE ----
         notification.setOnClickListener {
 
             val intent = Intent(this, MainActivity::class.java)
