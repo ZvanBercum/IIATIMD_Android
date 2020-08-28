@@ -3,12 +3,9 @@ package com.example.android.Resources.Adapters
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.R
-import com.example.android.Resources.Reminder
-import com.example.android.Resources.SharedPrefs
-import kotlinx.android.synthetic.main.activity_reminder.view.*
+import com.example.android.Resources.Reminder.Reminder
 import kotlinx.android.synthetic.main.reminder_card.view.*
 
 class ReminderAdapter(private val reminders: ArrayList<Reminder>) : RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder>() {

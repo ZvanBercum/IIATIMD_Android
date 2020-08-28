@@ -1,4 +1,4 @@
-package com.example.android.Resources
+package com.example.android.Resources.Reminder
 
 import com.example.android.Resources.Medicine.Medicine
 

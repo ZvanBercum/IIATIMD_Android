@@ -15,11 +15,10 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.android.Resources.Adapters.ReminderAdapter
-import com.example.android.Resources.AppDatabase
-import com.example.android.Resources.Reminder
+import com.example.android.Resources.Database.AccessDatabase
+import com.example.android.Resources.Medicine.Medicine
+import com.example.android.Resources.Reminder.Reminder
 import kotlinx.android.synthetic.main.activity_reminder.*
 
 class ReminderActivity : AppCompatActivity()  {
