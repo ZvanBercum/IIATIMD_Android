@@ -16,11 +16,11 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_herrineringen.*
 
-class HerinneringenActivity : AppCompatActivity()  {
+class ReminderActivity : AppCompatActivity()  {
 
-    lateinit var notificationManager : NotificationManager
-    lateinit var notificationChannel : NotificationChannel
-    lateinit var builder : Notification.Builder
+    private lateinit var notificationManager : NotificationManager
+    private lateinit var notificationChannel : NotificationChannel
+    private lateinit var builder : Notification.Builder
     private val channelId = "com.example.android"
     private val description = "Medicine reminder notification"
 
