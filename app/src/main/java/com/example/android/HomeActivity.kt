@@ -24,44 +24,21 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
         this.api = Api(this)
         this.sharedPrefs = SharedPrefs(this)
 
+        val reminderButton = findViewById<Button>(R.id.test_button)
+
+        //Check if user is logged in
         val token = this.sharedPrefs.isLogged()
         if(token != null){
-            this.api.getMedicines(token){ result, error ->
-                if(error != null){
-                    //TODO: Handle other errors
-                    if(error is AuthFailureError){
-                        logout()
-                    }
-                }
-                if(result != null){
-
-                    val button = findViewById<Button>(R.id.test_button)
-
-                    //Submit login
-                    button.setOnClickListener{
-                        Log.d("DEBUG", "GEKLIIKT!!!!!!!!!!!!!!!!!")
-
-                        // TODO laad herrineringenActivity view in als er op de button wordt geklikt
-                        val intent = Intent(this, HerinneringenActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                    //TODO Start of medicine fetching, needs to move to its own class
-                    val medicinesArray = JSONArray(result)
-                    val medicines = JSONObject(JSONArray(medicinesArray[0].toString())[0].toString())
-                    Log.d("DEBUG", medicines.toString())
-                    Log.d("DEBUG", medicines["naam"].toString())
-                }
-
+            reminderButton.setOnClickListener{
+                this.goToReminders()
             }
         }else{
             logout()
         }
-
-
     }
 
     /**
@@ -71,6 +48,15 @@ class HomeActivity : AppCompatActivity() {
     private fun logout() {
         this.sharedPrefs.logoutUser()
         val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+    }
+
+    /**
+     * @func goToReminders
+     * This function switches to the reminder activity
+     */
+    private fun goToReminders(){
+        val intent = Intent(this, HerinneringenActivity::class.java)
         startActivity(intent)
     }
 

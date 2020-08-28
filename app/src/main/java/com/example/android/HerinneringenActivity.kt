@@ -26,7 +26,6 @@ class HerinneringenActivity : AppCompatActivity()  {
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("DEBUG", "GEKLIIKT!!!!!!!!!!!!!!!!!")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_herrineringen)
 
