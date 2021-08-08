@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.example.android.LoginActivity">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="70pt"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/medicines"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/logoText"
+        android:layout_width="match_parent"
+        android:layout_height="30pt"
+        android:layout_marginBottom="5dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="22sp"
+        android:layout_below="@+id/logo"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/medicineRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/logoText"/>
+
+    <Button
+        android:id="@+id/notification"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Medicijn toevoegen"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:backgroundTint="@color/colorAccent"/>
+
+</RelativeLayout>

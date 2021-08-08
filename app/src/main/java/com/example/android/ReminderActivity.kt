@@ -15,8 +15,11 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.android.Resources.Adapters.ReminderAdapter
-import com.example.android.Resources.Database.AccessDatabase
+import com.example.android.Resources.AppDatabase
+//import com.example.android.Resources.Database.AccessDatabase
+
 import com.example.android.Resources.Medicine.Medicine
 import com.example.android.Resources.Reminder.Reminder
 import kotlinx.android.synthetic.main.activity_reminder.*
@@ -40,7 +43,7 @@ class ReminderActivity : AppCompatActivity()  {
         setContentView(R.layout.activity_reminder)
 
         linearLayoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = linearLayoutManager
+        reminderRecyclerView.layoutManager = linearLayoutManager
 
         val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "medicineDB").allowMainThreadQueries().build()
 
@@ -52,15 +55,11 @@ class ReminderActivity : AppCompatActivity()  {
         reminders.add(Reminder("6",  "16:00", "15-08-2020", "1"))
 
         adapter = ReminderAdapter(reminders)
-        recyclerView.adapter = adapter
+        reminderRecyclerView.adapter = adapter
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
 
-
-
-
-        //DO NOT EDIT ABOVE THIS LINE ----
         notification.setOnClickListener {
 
             val intent = Intent(this, MainActivity::class.java)

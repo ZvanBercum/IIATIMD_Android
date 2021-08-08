@@ -59,12 +59,13 @@ class LoginActivity : AppCompatActivity() {
             makeErrorDialog("Geen geldig e-mailadres ingevuld!", "Voer een e-mailadres in.")
         }else{
             this.api.login(email, password){ result, error ->
-                //TODO: HANDLE ERRORS LIKE MAIN ACTIVITY
                 if(result.toString() == "This user does not exist"){
                     makeErrorDialog("Inloggen mislukt!", "Deze gebruiker bestaat niet")
                 }else if(result.toString() == "\"This password doest not exist by this user\"") {
                     makeErrorDialog("Inloggen mislukt!", "Verkeerd wachtwoord opgegeven")
                 }else{
+                    Log.d("DEBUG", result.toString())
+
                     val jsonResult = JSONObject(result.toString())
                     val token = jsonResult["token"].toString()
                     if(!token.isBlank()){

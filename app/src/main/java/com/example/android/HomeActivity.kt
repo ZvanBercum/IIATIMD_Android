@@ -21,7 +21,9 @@ class HomeActivity : AppCompatActivity() {
         this.api = Api(this)
         this.sharedPrefs = SharedPrefs(this)
 
-        val reminderButton = findViewById<Button>(R.id.test_button)
+        val reminderButton = findViewById<Button>(R.id.reminder_button)
+
+        val medicineButton = findViewById<Button>(R.id.medicine_button)
 
         //Check if user is logged in
         val token = this.sharedPrefs.isLogged()
@@ -29,6 +31,10 @@ class HomeActivity : AppCompatActivity() {
             reminderButton.setOnClickListener{
                 this.goToReminders()
             }
+            medicineButton.setOnClickListener{
+                this.goToMedicines()
+            }
+
         }else{
             logout()
         }
@@ -50,6 +56,11 @@ class HomeActivity : AppCompatActivity() {
      */
     private fun goToReminders(){
         val intent = Intent(this, ReminderActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun goToMedicines(){
+        val intent = Intent(this, MedicineActivity::class.java)
         startActivity(intent)
     }
 

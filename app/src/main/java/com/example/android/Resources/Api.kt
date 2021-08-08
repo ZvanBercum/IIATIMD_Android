@@ -22,7 +22,7 @@ class Api{
     private var queue: RequestQueue?
     //BaseURL is localhost for testing purposes, using NGROK for tunneling.
     //BEWARE: NGROK URL CHANGES EVERYTIME YOU RESTART THE SERVICE
-    private val base_url = "https://6df8a75623fc.ngrok.io"
+    private val base_url = "https://1c2d8ea05bf8.ngrok.io"
     //Init vars
 
     constructor(context: Context) {

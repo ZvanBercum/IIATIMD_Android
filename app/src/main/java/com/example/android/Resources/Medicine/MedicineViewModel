@@ -1,0 +1,27 @@
+package com.example.android.Resources.Medicine
+
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
+
+class MedicineViewModel(private val repository: MedicineRepository) : ViewModel() {
+    val allMedicines: LiveData<List<Medicine>> = repository.allMedicines.asLiveData()
+
+    /**
+     * Launching a new coroutine to insert the data in a non-blocking way
+     */
+    fun insert(medicine: Medicine) = viewModelScope.launch {
+        repository.insert(medicine)
+    }
+}
+
+class MedicineViewModelFactory(private val repository: MedicineRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(MedicineViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return com.example.android.Resources.Medicine.MedicineViewModel(
+                repository
+            ) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
