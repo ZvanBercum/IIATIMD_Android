@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
      * @func switchToLogin
      * Load the login screen
      */
-    fun switchToLogin(){
+    private fun switchToLogin(){
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
      * @func switchToHome
      * Load the home screen if user is logged
      */
-    fun switchToHome() {
+    private fun switchToHome() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
     }
