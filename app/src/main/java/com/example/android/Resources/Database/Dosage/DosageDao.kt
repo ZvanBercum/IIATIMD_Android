@@ -21,4 +21,7 @@ interface DosageDao{
 
     @get:Query("SELECT * FROM dosage ORDER BY medicineId ASC")
     val allDosages: LiveData<List<Dosage>>
+
+    @Query("SELECT MIN(date) FROM dosage WHERE medicineId = :id AND date >= :now")
+    suspend fun firstDosageByMed(id: Long, now: Long): Long
 }

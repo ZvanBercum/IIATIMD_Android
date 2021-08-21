@@ -23,11 +23,11 @@ suspend fun rePopulateDb(database: AppDatabase?) {
             val medicineTwo = Medicine(name = "Paracetamol", desc = "Tegen koorts en pijn")
             val medTwoId = medicineDao.insert(medicineTwo)
 
-            val dosageOne = Dosage(dosage = "250mg", date = 1629459500, medicineId = medicineDao.insert(medicineOne))
-            val dosageTwo = Dosage(dosage = "500mg", date = 1629459500, medicineId = medTwoId)
-            val dosageThree = Dosage(dosage = "500mg", date = 1629459500, medicineId = medTwoId)
-            val dosageFour = Dosage(dosage = "100mg", date = 1629459500, medicineId = medTwoId)
-            val dosageFive = Dosage(dosage = "3500mg", date = 1629459500, medicineId = medTwoId)
+            val dosageOne = Dosage(dosage = "250mg", date = 1632228011, medicineId = medicineDao.insert(medicineOne))
+            val dosageTwo = Dosage(dosage = "500mg", date = 1632228012, medicineId = medTwoId)
+            val dosageThree = Dosage(dosage = "500mg", date = 1632573611, medicineId = medTwoId)
+            val dosageFour = Dosage(dosage = "100mg", date = 1632660011, medicineId = medTwoId)
+            val dosageFive = Dosage(dosage = "3500mg", date = 1632746411, medicineId = medTwoId)
 
             dosageDao.insert(dosageOne)
             dosageDao.insert(dosageTwo)

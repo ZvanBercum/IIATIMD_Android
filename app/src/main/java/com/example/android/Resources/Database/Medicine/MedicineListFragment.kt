@@ -37,7 +37,6 @@ class MedicineListFragment : Fragment() {
         (medicineViewModel as MedicinesViewModel).medicineList.observe(this, Observer{
             medicines: List<Medicine> ->
             medicineListAdapter.setMedicineList(medicines)
-            Log.d("DEBUG", medicines.toString())
         })
     }
 
@@ -45,7 +44,6 @@ class MedicineListFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerview_medicines)
         medicineListAdapter = MedicineListAdapter(requireContext())
         recyclerView.adapter = medicineListAdapter
-//        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         recyclerView.layoutManager = LinearLayoutManager(context)
     }
 
