@@ -19,6 +19,9 @@ interface DosageDao{
     @Query("DELETE FROM dosage")
     suspend fun deleteAll()
 
+    @Query("DELETE FROM dosage WHERE id = :id")
+    suspend fun deleteById(id: Long)
+
     @get:Query("SELECT * FROM dosage ORDER BY medicineId ASC")
     val allDosages: LiveData<List<Dosage>>
 
