@@ -1,24 +1,17 @@
 package com.example.android
 
-import android.app.ProgressDialog.show
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.contextaware.withContextAvailable
-import androidx.appcompat.app.AlertDialog
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.android.Resources.Database.AppDatabase
 import com.example.android.Resources.Database.Dosage.DosageListFragment
 import com.example.android.Resources.Database.Medicine.Medicine
-import com.example.android.Resources.Database.Medicine.MedicineListFragment
-import com.example.android.Resources.Database.Medicine.NewMedicineDialogFragment
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 
 class MedicineEditActivity : AppCompatActivity() {
@@ -34,6 +27,8 @@ class MedicineEditActivity : AppCompatActivity() {
         val nameEdit = findViewById<EditText>(R.id.MedEditName)
         val descEdit = findViewById<EditText>(R.id.MedEditDesc)
         val saveBtn = findViewById<Button>(R.id.save)
+        val removeBtn = findViewById<TextView>(R.id.medicineRemove)
+
         runBlocking {
             val medicine = getMedicine(id)
             if (medicine != null) {
@@ -44,6 +39,11 @@ class MedicineEditActivity : AppCompatActivity() {
                     medicine.desc = descEdit.text.toString()
                     runBlocking{
                         saveMedicine(medicine)
+                    }
+                }
+                removeBtn.setOnClickListener {
+                    runBlocking{
+                        deleteMedicine(medicine.id)
                     }
                 }
             }
@@ -67,8 +67,18 @@ class MedicineEditActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun switchToIndex(){
+        val intent = Intent(this, MedicineActivity::class.java)
+        startActivity(intent)
+    }
+
     private suspend fun saveMedicine(medicine: Medicine){
         AppDatabase.getDatabase(applicationContext).medicineDao().update(medicine)
         Toast.makeText(applicationContext, "Medicijn is opgeslagen", Toast.LENGTH_SHORT).show()
+    }
+
+    private suspend fun deleteMedicine(id: Long){
+        AppDatabase.getDatabase(applicationContext).medicineDao().deleteById(id)
+        switchToHome()
     }
 }

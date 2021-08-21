@@ -26,5 +26,5 @@ interface DosageDao{
     val allDosages: LiveData<List<Dosage>>
 
     @Query("SELECT MIN(date) FROM dosage WHERE medicineId = :id AND date >= :now")
-    suspend fun firstDosageByMed(id: Long, now: Long): Long
+    suspend fun firstDosageByMed(id: Long, now: Long): Long?
 }

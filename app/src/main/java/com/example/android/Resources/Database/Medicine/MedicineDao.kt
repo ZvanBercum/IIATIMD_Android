@@ -23,6 +23,9 @@ interface MedicineDao{
     @Query("DELETE FROM medicine")
     suspend fun deleteAll()
 
+    @Query("DELETE FROM medicine WHERE id = :id")
+    suspend fun deleteById(id: Long)
+
     @get:Query("SELECT * FROM medicine ORDER BY name ASC")
     val allMedicines: LiveData<List<Medicine>>
 }

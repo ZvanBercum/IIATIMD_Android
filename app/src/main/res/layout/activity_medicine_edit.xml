@@ -28,14 +28,29 @@
         android:layout_below="@+id/logo"
         android:elevation="@dimen/cardview_default_elevation"
         />
+    <TextView
+        android:id="@+id/medicineRemove"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:padding="6dp"
+        android:textSize="12dp"
+        android:text="X"
+        android:layout_below="@id/logoText"
+        android:background="@drawable/circle_view_red"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp"
+        />
 
     <RelativeLayout
         android:id="@+id/rel_layout_name_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/logoText"
+        android:layout_below="@id/medicineRemove"
         >
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
