@@ -58,12 +58,20 @@ class DosageListAdapter(val context: Context) : RecyclerView.Adapter<DosageListA
         val cal: Calendar = Calendar.getInstance()
         //Convert Epoch Unix Timestamp from seconds to milliseconds
         cal.timeInMillis = timestamp*1000
-        val hour = cal.get(Calendar.HOUR_OF_DAY)
-        val minute = cal.get(Calendar.MINUTE)
+        var hour = cal.get(Calendar.HOUR_OF_DAY)
+        var minute = cal.get(Calendar.MINUTE)
         val day = cal.get(Calendar.DATE)
         val month = cal.get(Calendar.MONTH)
         val year = cal.get(Calendar.YEAR)
-        return "$hour:$minute  $day-$month-$year"
+        var stringHour = ""
+        var stringMinute = ""
+        if(hour < 10){
+            stringHour = "0"+hour
+        }else stringHour = hour.toString()
+        if(minute < 10){
+            stringMinute = "0"+minute
+        }else stringMinute = minute.toString()
+        return "$stringHour:$stringMinute  $day-$month-$year"
     }
 
     private suspend fun deleteDosage(id: Long) {

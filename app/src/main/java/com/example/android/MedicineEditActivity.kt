@@ -1,18 +1,23 @@
 package com.example.android
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.text.InputType.TYPE_CLASS_NUMBER
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.android.Resources.Database.AppDatabase
 import com.example.android.Resources.Database.Dosage.DosageListFragment
+import com.example.android.Resources.Database.Medicine.Dosage
 import com.example.android.Resources.Database.Medicine.Medicine
 import kotlinx.coroutines.runBlocking
+import java.time.DayOfWeek
+import java.util.*
 
 class MedicineEditActivity : AppCompatActivity() {
 
@@ -28,6 +33,7 @@ class MedicineEditActivity : AppCompatActivity() {
         val descEdit = findViewById<EditText>(R.id.MedEditDesc)
         val saveBtn = findViewById<Button>(R.id.save)
         val removeBtn = findViewById<TextView>(R.id.medicineRemove)
+        val addDosageBtn = findViewById<Button>(R.id.addDosage)
 
         runBlocking {
             val medicine = getMedicine(id)
@@ -45,6 +51,9 @@ class MedicineEditActivity : AppCompatActivity() {
                     runBlocking{
                         deleteMedicine(medicine.id)
                     }
+                }
+                addDosageBtn.setOnClickListener {
+                   switchToMakeDosage(medicine.id)
                 }
             }
         }
@@ -72,6 +81,12 @@ class MedicineEditActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun switchToMakeDosage(medId: Long){
+        val intent = Intent(this, MakeDosageActivity::class.java)
+        intent.putExtra("medId", medId.toString())
+        startActivity(intent)
+    }
+
     private suspend fun saveMedicine(medicine: Medicine){
         AppDatabase.getDatabase(applicationContext).medicineDao().update(medicine)
         Toast.makeText(applicationContext, "Medicijn is opgeslagen", Toast.LENGTH_SHORT).show()
@@ -81,4 +96,5 @@ class MedicineEditActivity : AppCompatActivity() {
         AppDatabase.getDatabase(applicationContext).medicineDao().deleteById(id)
         switchToHome()
     }
+
 }

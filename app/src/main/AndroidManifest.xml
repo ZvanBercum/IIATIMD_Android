@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MakeDosageActivity"></activity>
         <activity
             android:name=".MedicineEditActivity"
             android:label="@string/title_activity_medicine_edit"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MedicineActivity"
             android:label="@string/title_activity_medicine"

@@ -43,7 +43,6 @@ class MedicineActivity : AppCompatActivity() {
                     builder.setMessage("Voeg een beschrijving toe voor $name")
                     builder.setPositiveButton(android.R.string.yes) { dialog, which ->
                         val medicine = Medicine(name = name, desc = input.text.toString())
-                        Log.d("DEBUG", medicine.toString())
                         GlobalScope.launch(Dispatchers.IO) {
                             saveMedicine(medicine)
                         }

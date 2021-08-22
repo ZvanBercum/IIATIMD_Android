@@ -67,7 +67,6 @@ class MedicineListAdapter(val context: Context) : RecyclerView.Adapter<MedicineL
 
     private suspend fun getFirstDosage(medicine: Medicine): String? {
         val timestamp = System.currentTimeMillis() / 1000
-        Log.d("DEBUG", medicine.toString())
         val time = AppDatabase.getDatabase(context).dosageDao().firstDosageByMed(medicine.id, timestamp)
         if(time != null){
             val diff = time - timestamp
