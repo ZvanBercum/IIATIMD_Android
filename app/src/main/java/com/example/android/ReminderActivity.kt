@@ -37,8 +37,7 @@ class ReminderActivity : AppCompatActivity()  {
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         notification.setOnClickListener {
-            count++
-            notification(count, "Medicine reminder", "Test notificatie")
+
         }
 
     }

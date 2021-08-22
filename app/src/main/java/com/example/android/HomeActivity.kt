@@ -22,7 +22,6 @@ class HomeActivity : AppCompatActivity() {
         this.sharedPrefs = SharedPrefs(this)
 
         val reminderButton = findViewById<Button>(R.id.reminder_button)
-
         val medicineButton = findViewById<Button>(R.id.medicine_button)
 
         //Check if user is logged in
@@ -34,7 +33,6 @@ class HomeActivity : AppCompatActivity() {
             medicineButton.setOnClickListener{
                 this.goToMedicines()
             }
-
         }else{
             logout()
         }
