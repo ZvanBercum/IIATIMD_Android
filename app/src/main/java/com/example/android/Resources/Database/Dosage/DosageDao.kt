@@ -3,7 +3,6 @@ package com.example.android.Resources.Database.Dosage
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.android.Resources.Database.Medicine.Dosage
-import com.example.android.Resources.Database.Medicine.Medicine
 
 @Dao
 interface DosageDao{

@@ -1,16 +1,13 @@
 package com.example.android.Resources
 
 import android.content.Context
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
-import org.json.JSONObject
 
 
 /**
@@ -22,7 +19,7 @@ class Api{
     private var queue: RequestQueue?
     //BaseURL is localhost for testing purposes, using NGROK for tunneling.
     //BEWARE: NGROK URL CHANGES EVERYTIME YOU RESTART THE SERVICE
-    private val base_url = "https://1c2d8ea05bf8.ngrok.io"
+    private val base_url = "https://db29-2001-981-90d9-1-8158-1698-b5bd-edf2.ngrok.io"
     //Init vars
 
     constructor(context: Context) {

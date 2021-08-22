@@ -1,23 +1,14 @@
 package com.example.android
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.text.InputType.TYPE_CLASS_NUMBER
-import android.util.Log
-import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.example.android.Resources.Database.AppDatabase
 import com.example.android.Resources.Database.Dosage.DosageListFragment
-import com.example.android.Resources.Database.Medicine.Dosage
 import com.example.android.Resources.Database.Medicine.Medicine
 import kotlinx.coroutines.runBlocking
-import java.time.DayOfWeek
-import java.util.*
 
 class MedicineEditActivity : AppCompatActivity() {
 
@@ -73,11 +64,6 @@ class MedicineEditActivity : AppCompatActivity() {
      */
     private fun switchToHome() {
         val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun switchToIndex(){
-        val intent = Intent(this, MedicineActivity::class.java)
         startActivity(intent)
     }
 

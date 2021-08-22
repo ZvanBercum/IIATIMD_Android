@@ -1,7 +1,6 @@
 package com.example.android.Resources.Database.Medicine
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class MedicineListFragment : Fragment() {
     private lateinit var medicineListAdapter: MedicineListAdapter
@@ -45,10 +40,6 @@ class MedicineListFragment : Fragment() {
         medicineListAdapter = MedicineListAdapter(requireContext())
         recyclerView.adapter = medicineListAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
-    }
-
-    fun removeData() {
-//        GlobalScope.launch(Dispatchers.IO) { medicineViewModel.deleteAll()}
     }
 
     companion object {

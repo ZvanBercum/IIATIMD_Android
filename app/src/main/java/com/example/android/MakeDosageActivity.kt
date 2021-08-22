@@ -1,29 +1,20 @@
 package com.example.android
 
 import android.app.*
-import android.app.AlarmManager.RTC_WAKEUP
-import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
-import androidx.annotation.RequiresApi
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
+import androidx.appcompat.app.AlertDialog
 import com.example.android.Resources.Database.AppDatabase
 import com.example.android.Resources.Database.Medicine.Dosage
-import com.example.android.Resources.Database.Medicine.Medicine
 import com.example.android.Resources.Reminder.ReminderBroadcastReceiver
-import kotlinx.android.synthetic.main.activity_make_dosage.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.reflect.Array.set
-import java.time.Month
 import java.util.*
 
 class MakeDosageActivity : AppCompatActivity() {
@@ -33,14 +24,7 @@ class MakeDosageActivity : AppCompatActivity() {
     lateinit var timePicker: TimePicker
     lateinit var intervalSpinner: Spinner
     lateinit var dosageDosage: EditText
-    lateinit var alarmManager: AlarmManager
-    lateinit var pendingIntent: PendingIntent
-    private lateinit var notificationManager : NotificationManager
-    private lateinit var notificationChannel : NotificationChannel
-    private lateinit var builder : Notification.Builder
 
-    private val channelId = "com.example.android"
-    private val description = "Medicine reminder notification"
     var medId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,6 +71,9 @@ class MakeDosageActivity : AppCompatActivity() {
 
     private suspend fun createDosages(){
         if(dosageDosage.text.toString().isNullOrEmpty()){
+            this.runOnUiThread {
+                makeErrorDialog("Geen dosering ingevuld!", "Vul een dosering in, voordat u opslaat")
+            }
             return
         }
         val hour = timePicker.hour
@@ -118,11 +105,13 @@ class MakeDosageActivity : AppCompatActivity() {
                 "Wekelijks" -> beginDate+= 604800
                 "Maandelijks" -> {
                     cal.add(Calendar.MONTH, 1)
-                    beginDate = cal.timeInMillis*1000
+                    beginDate = cal.timeInMillis / 1000
+                    Log.d("DEBUG", beginDate.toString())
+                    Log.d("DEBUG", endDate.toString())
                 }
                 "Jaarlijks" -> {
                     cal.add(Calendar.YEAR, 1)
-                    beginDate = cal.timeInMillis*1000
+                    beginDate = cal.timeInMillis / 1000
                 }
                 else -> break
             }
@@ -152,4 +141,16 @@ class MakeDosageActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
+    private fun makeErrorDialog(title: String, message: String){
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("ok", DialogInterface.OnClickListener {
+                    dialog, id ->(dialog.dismiss())
+            })
+        val alert = dialogBuilder.create()
+        alert.show()
+    }
+
 }

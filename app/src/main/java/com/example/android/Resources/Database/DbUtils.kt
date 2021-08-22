@@ -1,7 +1,5 @@
 package com.example.android.Resources.Database
 
-import android.util.Log
-import androidx.room.ColumnInfo
 import com.example.android.Resources.Database.Dosage.DosageDao
 import com.example.android.Resources.Database.Medicine.Dosage
 import com.example.android.Resources.Database.Medicine.Medicine
@@ -19,7 +17,7 @@ suspend fun rePopulateDb(database: AppDatabase?) {
             dosageDao.deleteAll()
             medicineDao.deleteAll()
 
-            val medicineOne = Medicine(name = "Ibuprofen", desc = "Tegen koorts en hevige pijn")
+            val medicineOne = Medicine(name = "Ibuprofen", desc = "Tegen hoge koorts en hevige pijn")
             val medicineTwo = Medicine(name = "Paracetamol", desc = "Tegen koorts en pijn")
             val medTwoId = medicineDao.insert(medicineTwo)
 
@@ -34,9 +32,6 @@ suspend fun rePopulateDb(database: AppDatabase?) {
             dosageDao.insert(dosageThree)
             dosageDao.insert(dosageFour)
             dosageDao.insert(dosageFive)
-
-
-
 
         }
     }

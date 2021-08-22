@@ -2,18 +2,13 @@ package com.example.android.Resources.Database.Medicine
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.*
 import com.example.android.Resources.Database.AppDatabase
-import com.example.android.Resources.Database.Medicine.MedicineListFragment.Companion.newInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -87,7 +82,7 @@ class MedicineListAdapter(val context: Context) : RecyclerView.Adapter<MedicineL
                 cal.timeInMillis = time*1000
                 if(diff < 31556926){
                     val day = cal.get(Calendar.DATE)
-                    val month = cal.get(Calendar.MONTH)
+                    val month = cal.get(Calendar.MONTH)+1
                     return "$day - $month"
                 }else{
                     return cal.get(Calendar.YEAR).toString()

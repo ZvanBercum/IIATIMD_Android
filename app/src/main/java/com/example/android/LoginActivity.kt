@@ -11,7 +11,6 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.Resources.Api
-import com.example.android.Resources.JsonMaker
 import com.example.android.Resources.SharedPrefs
 import org.json.JSONObject
 
@@ -22,8 +21,6 @@ class LoginActivity : AppCompatActivity() {
     lateinit var submit: Button
     lateinit var api : Api
     lateinit var sharedPrefs: SharedPrefs
-    //Load classes
-    private val jsonMaker = JsonMaker()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,14 +62,18 @@ class LoginActivity : AppCompatActivity() {
                     makeErrorDialog("Inloggen mislukt!", "Verkeerd wachtwoord opgegeven")
                 }else{
                     Log.d("DEBUG", result.toString())
-
-                    val jsonResult = JSONObject(result.toString())
-                    val token = jsonResult["token"].toString()
-                    if(!token.isBlank()){
-                        this.sharedPrefs.loginUser(token)
-                        switchToHome()
-                    }else{
+                    if(result.isNullOrEmpty()){
                         makeErrorDialog("Inloggen mislukt!", "Inloggen is mislukt, neem contact op met de helpdesk.")
+                    }else{
+                        val jsonResult = JSONObject(result.toString())
+                        val token = jsonResult["token"].toString()
+                        if(!token.isBlank()){
+                            this.sharedPrefs.loginUser(token)
+                            switchToHome()
+                        }else{
+                            makeErrorDialog("Inloggen mislukt!", "Inloggen is mislukt, neem contact op met de helpdesk.")
+                        }
+
                     }
                 }
             }

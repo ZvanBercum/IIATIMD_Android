@@ -1,21 +1,14 @@
 package com.example.android.Resources.Database.Dosage
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.startActivity
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.*
 import com.example.android.Resources.Database.AppDatabase
 import com.example.android.Resources.Database.Medicine.Dosage
-import com.example.android.Resources.Database.Medicine.MedicineListFragment.Companion.newInstance
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -61,7 +54,7 @@ class DosageListAdapter(val context: Context) : RecyclerView.Adapter<DosageListA
         var hour = cal.get(Calendar.HOUR_OF_DAY)
         var minute = cal.get(Calendar.MINUTE)
         val day = cal.get(Calendar.DATE)
-        val month = cal.get(Calendar.MONTH)
+        val month = cal.get(Calendar.MONTH)+1
         val year = cal.get(Calendar.YEAR)
         var stringHour = ""
         var stringMinute = ""
